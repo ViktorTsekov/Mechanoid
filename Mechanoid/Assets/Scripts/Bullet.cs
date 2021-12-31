@@ -6,14 +6,28 @@ public class Bullet : MonoBehaviour
 {
     public GameObject bangParticleEffect;
 
-    private float lifetime;
+    private Vector3 currentPos;
+    private Vector3 prevPos;
 
-    private void OnCollisionEnter(Collision col)
+    void Start()
     {
-        if(col.gameObject.tag != "Player")
+        currentPos = transform.position;
+    }
+
+    void Update()
+    {
+        prevPos = currentPos;
+        currentPos = transform.position;
+
+        RaycastHit hit;
+
+        if (Physics.Linecast(prevPos, currentPos, out hit))
         {
-            GameObject particleEffet = (GameObject) Instantiate(bangParticleEffect, transform.position, transform.rotation);
-            Destroy(gameObject);
+            if (hit.transform.gameObject.tag != "Projectile" && hit.transform.gameObject.tag != "Player")
+            {
+                GameObject particleEffet = (GameObject) Instantiate(bangParticleEffect, prevPos, transform.rotation);
+                Destroy(gameObject);
+            }
         }
     }
 }

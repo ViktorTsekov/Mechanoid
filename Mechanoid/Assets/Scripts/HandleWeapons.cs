@@ -25,7 +25,7 @@ public class HandleWeapons : MonoBehaviour
         animationController = mainGuns.GetComponent<Animation>();
         timeToFire = Time.time;
         fireRate = 0.04f;
-        bulletSpeed = 50f;
+        bulletSpeed = 40f;
     }
 
     void Update()

@@ -50,6 +50,8 @@ public class HandleMovement : MonoBehaviour
         battleStation.transform.localRotation = Quaternion.identity;
         playAnimation = true;
 
+        rotate(direction);
+
         if (collisionVector == "forward")
         {
             Vector3 normalVector = transform.rotation * -Vector3.forward;
@@ -82,7 +84,6 @@ public class HandleMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Q))
         {
-            velocity.z += 0.1f;
             battleStation.transform.localRotation = Quaternion.Euler(new Vector3(10f, 0f, 0f));
             playAnimation = false;
         }
@@ -101,7 +102,7 @@ public class HandleMovement : MonoBehaviour
         } 
         else if(direction.magnitude >= 0.1f)
         {
-            moveRobot(direction);
+            move(direction);
 
             if (isGrounded)
             {
@@ -118,7 +119,7 @@ public class HandleMovement : MonoBehaviour
 
     }
 
-    void moveRobot(Vector3 direction)
+    void move(Vector3 direction)
     {
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
@@ -129,28 +130,35 @@ public class HandleMovement : MonoBehaviour
         controller.Move(moveDir.normalized * speed * Time.deltaTime);
     }
 
+    void rotate(Vector3 direction)
+    {
+        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+    }
+
     string checkForCollision()
     {
-        int maxDistance = 4;
         Ray forwardRay = new Ray(distanceCheck.position, distanceCheck.forward);
         Ray backwardRay = new Ray(distanceCheck.position, -1f * distanceCheck.forward);
         Ray rightRay = new Ray(distanceCheck.position, distanceCheck.right);
         Ray leftRay = new Ray(distanceCheck.position, -1f * distanceCheck.right);
         RaycastHit hit;
 
-        if(Physics.Raycast(forwardRay, out hit, maxDistance))
+        if(Physics.Raycast(forwardRay, out hit, 4))
         {
             return hit.transform.gameObject.tag == "Projectile" ? "none" : "forward";
         }
-        else if (Physics.Raycast(backwardRay, out hit, maxDistance))
+        else if (Physics.Raycast(backwardRay, out hit, 3))
         {
             return hit.transform.gameObject.tag == "Projectile" ? "none" : "backward";
         }
-        else if (Physics.Raycast(rightRay, out hit, maxDistance))
+        else if (Physics.Raycast(rightRay, out hit, 3))
         {
             return hit.transform.gameObject.tag == "Projectile" ? "none" : "right";
         }
-        else if (Physics.Raycast(leftRay, out hit, maxDistance))
+        else if (Physics.Raycast(leftRay, out hit, 3))
         {
             return hit.transform.gameObject.tag == "Projectile" ? "none" : "left";
         }
