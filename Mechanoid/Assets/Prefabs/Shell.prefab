@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 6170904501238346026}
   - component: {fileID: 1162769482617381026}
   - component: {fileID: 4708514883309947574}
+  - component: {fileID: 570448168224376985}
   - component: {fileID: -467943813613455594}
   - component: {fileID: -3798600287547243864}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Shell
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -98,6 +99,20 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!136 &570448168224376985
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3691201438133946765}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.50000024
+  m_Height: 2.0000005
+  m_Direction: 0
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940699}
 --- !u!54 &-467943813613455594
 Rigidbody:
   m_ObjectHideFlags: 0

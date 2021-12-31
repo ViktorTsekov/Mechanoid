@@ -30,4 +30,13 @@ public class Bullet : MonoBehaviour
             }
         }
     }
+
+    void OnCollisionEnter(Collision obj)
+    {
+        if(obj.gameObject.tag != "Player")
+        {
+            GameObject particleEffet = (GameObject)Instantiate(bangParticleEffect, transform.position, transform.rotation);
+            Destroy(gameObject);
+        }
+    }
 }

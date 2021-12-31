@@ -106,7 +106,7 @@ public class HandleMovement : MonoBehaviour
 
             if (isGrounded)
             {
-                animationController.Play("Walking_Cycle");
+                animationController.Play("Walk");
             }
         }
         else

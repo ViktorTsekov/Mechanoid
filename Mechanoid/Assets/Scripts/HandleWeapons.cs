@@ -65,6 +65,8 @@ public class HandleWeapons : MonoBehaviour
         GameObject shell1 = Instantiate(shellPrefab, shellSpawnPoint1.position, shellPrefab.transform.rotation);
         GameObject shell2 = Instantiate(shellPrefab, shellSpawnPoint2.position, shellPrefab.transform.rotation);
 
+        shell1.GetComponent<Rigidbody>().AddForce(transform.right * 5f, ForceMode.Impulse);
+        shell2.GetComponent<Rigidbody>().AddForce(-transform.right * 5f, ForceMode.Impulse);
         bullet1.GetComponent<Rigidbody>().AddForce(bulletSpawnPoint1.forward * bulletSpeed, ForceMode.Impulse);
         bullet2.GetComponent<Rigidbody>().AddForce(bulletSpawnPoint2.forward * bulletSpeed, ForceMode.Impulse);
     }
