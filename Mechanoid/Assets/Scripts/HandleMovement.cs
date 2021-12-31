@@ -50,8 +50,6 @@ public class HandleMovement : MonoBehaviour
         battleStation.transform.localRotation = Quaternion.identity;
         playAnimation = true;
 
-        rotate(direction);
-
         if (collisionVector == "forward")
         {
             Vector3 normalVector = transform.rotation * -Vector3.forward;
@@ -111,6 +109,8 @@ public class HandleMovement : MonoBehaviour
         }
         else
         {
+            rotate(direction);
+
             if (isGrounded && playAnimation)
             {
                 animationController.Play("Idle");
