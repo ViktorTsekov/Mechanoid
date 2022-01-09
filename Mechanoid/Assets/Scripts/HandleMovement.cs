@@ -50,7 +50,11 @@ public class HandleMovement : MonoBehaviour
         battleStation.transform.localRotation = Quaternion.identity;
         playAnimation = true;
 
-        if (collisionVector == "forward")
+        if (collisionVector == "up")
+        {
+            velocity.y = -1f;
+        }
+        else if (collisionVector == "forward")
         {
             Vector3 normalVector = transform.rotation * -Vector3.forward;
             velocity = new Vector3(forceMultiplier * normalVector.x, velocity.y, forceMultiplier * normalVector.z);
@@ -140,13 +144,18 @@ public class HandleMovement : MonoBehaviour
 
     string checkForCollision()
     {
+        Ray upRay = new Ray(distanceCheck.position, distanceCheck.up);
         Ray forwardRay = new Ray(distanceCheck.position, distanceCheck.forward);
         Ray backwardRay = new Ray(distanceCheck.position, -1f * distanceCheck.forward);
         Ray rightRay = new Ray(distanceCheck.position, distanceCheck.right);
         Ray leftRay = new Ray(distanceCheck.position, -1f * distanceCheck.right);
         RaycastHit hit;
 
-        if(Physics.Raycast(forwardRay, out hit, 4))
+        if (Physics.Raycast(upRay, out hit, 3))
+        {
+            return hit.transform.gameObject.tag == "Projectile" ? "none" : "up";
+        }
+        else if (Physics.Raycast(forwardRay, out hit, 4))
         {
             return hit.transform.gameObject.tag == "Projectile" ? "none" : "forward";
         }

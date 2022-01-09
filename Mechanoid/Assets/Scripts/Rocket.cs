@@ -34,7 +34,7 @@ public class Rocket : MonoBehaviour
 
         if (Physics.Linecast(prevPos, currentPos, out hit))
         {
-            if (hit.transform.gameObject.tag != "Projectile" && hit.transform.gameObject.tag != "Player")
+            if (hit.transform.gameObject.tag != "Projectile" && hit.transform.gameObject.tag != "Player" && hit.transform.gameObject.tag != "Invisible Wall")
             {
                 explode();
             }

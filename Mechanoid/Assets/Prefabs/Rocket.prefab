@@ -4816,7 +4816,7 @@ GameObject:
   - component: {fileID: 3597523579544052778}
   - component: {fileID: 4324691607874614979}
   - component: {fileID: -5793534506000832922}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rocket
   m_TagString: Projectile
   m_Icon: {fileID: 0}
