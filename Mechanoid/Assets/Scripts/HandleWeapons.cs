@@ -6,6 +6,8 @@ public class HandleWeapons : MonoBehaviour
 {
     public AudioSource gunSfx;
     public GameObject mainGuns;
+    public GameObject rocketLauncher;
+    public GameObject rocketPrefab;
     public GameObject bulletPrefab;
     public GameObject shellPrefab;
     public ParticleSystem sparks_1;
@@ -30,7 +32,7 @@ public class HandleWeapons : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButton("Fire1") && Time.time > timeToFire)
+        if(Input.GetButton("Fire1") && Time.time > timeToFire)
         {
             timeToFire = Time.time + fireRate;
             mainGuns.GetComponent<Animation>().Play("Fire_Cycle");
@@ -51,6 +53,11 @@ public class HandleWeapons : MonoBehaviour
         {
             gunSfx.Stop();
         }
+
+        if(Input.GetButtonDown("Fire2"))
+        {
+            fireRockets();
+        }
     }
 
     private void fire()
@@ -69,6 +76,15 @@ public class HandleWeapons : MonoBehaviour
         shell2.GetComponent<Rigidbody>().AddForce(-transform.right * 5f, ForceMode.Impulse);
         bullet1.GetComponent<Rigidbody>().AddForce(bulletSpawnPoint1.forward * bulletSpeed, ForceMode.Impulse);
         bullet2.GetComponent<Rigidbody>().AddForce(bulletSpawnPoint2.forward * bulletSpeed, ForceMode.Impulse);
+    }
+
+    private void fireRockets()
+    {
+        foreach (Transform child in rocketLauncher.transform)
+        {
+            GameObject projectile = Instantiate(rocketPrefab, child.position, transform.rotation);
+            projectile.transform.rotation = Quaternion.Euler(rocketLauncher.transform.localRotation.eulerAngles.x, projectile.transform.localRotation.eulerAngles.y, projectile.transform.localRotation.eulerAngles.z);
+        }
     }
 
 }
