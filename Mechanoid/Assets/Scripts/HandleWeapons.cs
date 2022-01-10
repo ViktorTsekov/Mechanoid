@@ -5,11 +5,13 @@ using UnityEngine;
 public class HandleWeapons : MonoBehaviour
 {
     public AudioSource gunSfx;
+    public AudioSource rocketLauncherSfx;
     public GameObject mainGuns;
     public GameObject rocketLauncher;
     public GameObject rocketPrefab;
     public GameObject bulletPrefab;
     public GameObject shellPrefab;
+    public GameObject rocketLauncherFlash;
     public ParticleSystem sparks_1;
     public ParticleSystem sparks_2;
     public Transform bulletSpawnPoint1;
@@ -80,6 +82,13 @@ public class HandleWeapons : MonoBehaviour
 
     private void fireRockets()
     {
+        GameObject muzzleFlash = Instantiate(rocketLauncherFlash, rocketLauncher.transform.position, rocketLauncher.transform.rotation);
+
+        if (!rocketLauncherSfx.isPlaying)
+        {
+            rocketLauncherSfx.Play();
+        }
+
         foreach (Transform child in rocketLauncher.transform)
         {
             GameObject projectile = Instantiate(rocketPrefab, child.position, transform.rotation);

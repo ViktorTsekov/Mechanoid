@@ -5274,6 +5274,7 @@ GameObject:
   - component: {fileID: 197853285}
   - component: {fileID: 197853283}
   - component: {fileID: 197853286}
+  - component: {fileID: 197853289}
   - component: {fileID: 197853288}
   m_Layer: 3
   m_Name: Mecha
@@ -5349,11 +5350,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunSfx: {fileID: 197853286}
+  rocketLauncherSfx: {fileID: 197853289}
   mainGuns: {fileID: 1890679630}
   rocketLauncher: {fileID: 304700894}
   rocketPrefab: {fileID: 4955822622761676041, guid: cb83aed43d640df46a520f0bde81838f, type: 3}
   bulletPrefab: {fileID: 8690781052742952565, guid: a1cd6e7140f5ec34abb1893bf5badd57, type: 3}
   shellPrefab: {fileID: 3691201438133946765, guid: 0c533d391dff4a146826cb8269da3f15, type: 3}
+  rocketLauncherFlash: {fileID: 1555129547129612095, guid: 4caf41ae7fa4267449cdf8356a4d84db, type: 3}
   sparks_1: {fileID: 7296608689667163885}
   sparks_2: {fileID: 335949930}
   bulletSpawnPoint1: {fileID: 1217981612}
@@ -5488,6 +5491,102 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!82 &197853289
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197853281}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 66a48ebf75ef01a4c8857fa031cfcf6d, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.05
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &198517279
 GameObject:
   m_ObjectHideFlags: 0
@@ -12988,7 +13087,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1092236231}
-  m_LocalRotation: {x: 0.124511264, y: -0.0000000043256083, z: 5.28343e-10, w: 0.9922182}
+  m_LocalRotation: {x: 0.124511264, y: -0.000000004325616, z: 5.2840826e-10, w: 0.9922182}
   m_LocalPosition: {x: 30.4, y: 9.35, z: -16.7}
   m_LocalScale: {x: 1.9297475, y: 2.389413, z: 1.944039}
   m_Children: []
@@ -13176,7 +13275,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1147229671}
-  m_LocalRotation: {x: 0.10649048, y: 0.000000019127931, z: -0.0000000020485915, w: 0.9943138}
+  m_LocalRotation: {x: 0.10649048, y: -0.000000019127928, z: 0.000000002048591, w: 0.9943138}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
