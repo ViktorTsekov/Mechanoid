@@ -9540,7 +9540,7 @@ GameObject:
   - component: {fileID: 3746050377739749765}
   - component: {fileID: -1702136771756220407}
   m_Layer: 0
-  m_Name: Bullet Explosion
+  m_Name: Bullet_Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
