@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HandleWeapons : MonoBehaviour
 {
@@ -56,7 +57,7 @@ public class HandleWeapons : MonoBehaviour
             gunSfx.Stop();
         }
 
-        if(Input.GetButtonDown("Fire2"))
+        if(Input.GetButtonDown("Fire2") && gameObject.GetComponent<RocketCooldownHandler>().getReadyToFire())
         {
             fireRockets();
         }
@@ -84,6 +85,8 @@ public class HandleWeapons : MonoBehaviour
     {
         GameObject muzzleFlash = Instantiate(rocketLauncherFlash, rocketLauncher.transform.position, rocketLauncher.transform.rotation);
 
+        gameObject.GetComponent<RocketCooldownHandler>().setReadyToFire(false);
+
         if (!rocketLauncherSfx.isPlaying)
         {
             rocketLauncherSfx.Play();
@@ -95,5 +98,4 @@ public class HandleWeapons : MonoBehaviour
             projectile.transform.rotation = Quaternion.Euler(rocketLauncher.transform.localRotation.eulerAngles.x, projectile.transform.localRotation.eulerAngles.y, projectile.transform.localRotation.eulerAngles.z);
         }
     }
-
 }
