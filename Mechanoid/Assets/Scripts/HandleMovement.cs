@@ -79,7 +79,17 @@ public class HandleMovement : MonoBehaviour
             velocity.y = -2f;
         }
 
-        if(Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            StartCoroutine(lockCursor(0.2f));
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             speed *= 2;
         }
@@ -179,6 +189,12 @@ public class HandleMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(0.05f);
         animationController.Play(animationName);
+    }
+
+    private IEnumerator lockCursor(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
 }

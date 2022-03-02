@@ -20,7 +20,7 @@ public class RocketCooldownHandler : MonoBehaviour
         readyToFire = true;
         tick = Time.time;
         timeBetweenTicks = 1f;
-        cooldownPeriod = 15f;
+        cooldownPeriod = 10f;
         spriteMaxHeight = cooldownVisualIndicator.GetComponent<RectTransform>().rect.height;
     }
 
