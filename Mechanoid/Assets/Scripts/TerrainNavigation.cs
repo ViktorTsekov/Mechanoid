@@ -15,6 +15,7 @@ public class TerrainNavigation : MonoBehaviour
     public Transform zoneF;
     public GameObject defaultZone;
     public GameObject mainMesh;
+    public AudioSource walkingSfx;
 
     private Transform target;
     private NavMeshAgent navMeshAgent;
@@ -44,6 +45,11 @@ public class TerrainNavigation : MonoBehaviour
         if (transform.position.x != target.position.x || transform.position.z != target.position.z)
         {
             mainMesh.GetComponent<Animation>().Play("Walk");
+
+            if (!walkingSfx.isPlaying)
+            {
+                walkingSfx.Play();
+            }
         }
     }
 

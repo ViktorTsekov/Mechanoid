@@ -5,6 +5,8 @@ using UnityEngine;
 public class HandleMovement : MonoBehaviour
 {
     public Camera cam;
+    public AudioSource walkingSfx;
+    public AudioSource boosterSfx;
     public GameObject mainMesh;
     public GameObject battleStation;
     public Transform distanceCheck;
@@ -111,6 +113,11 @@ public class HandleMovement : MonoBehaviour
             StartCoroutine(DelayedAnimation("Jump"));
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             burn.Play();
+
+            if (!boosterSfx.isPlaying)
+            {
+                boosterSfx.Play();
+            }
         } 
         else if(direction.magnitude >= 0.1f)
         {
@@ -119,6 +126,11 @@ public class HandleMovement : MonoBehaviour
             if (isGrounded)
             {
                 animationController.Play("Walk");
+
+                if(!walkingSfx.isPlaying)
+                {
+                    walkingSfx.Play();
+                }
             }
         }
         else
