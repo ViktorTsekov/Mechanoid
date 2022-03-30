@@ -9,6 +9,7 @@ public class Rocket : MonoBehaviour
     private float speed;
     private float rotationSpeed;
     private float startHoming;
+    private float damage;
 
     private Vector3 direction;
     private Vector3 currentPos;
@@ -21,6 +22,7 @@ public class Rocket : MonoBehaviour
         startHoming = Time.time + 1f;
         speed = 40f;
         rotationSpeed = 5f;
+        damage = 100f;
         currentPos = transform.position;
     }
 
@@ -36,14 +38,14 @@ public class Rocket : MonoBehaviour
         {
             if (hit.transform.gameObject.tag != "Projectile" && hit.transform.gameObject.tag != "Player" && hit.transform.gameObject.tag != "Invisible Wall")
             {
-                explode();
+                explode(hit);
             }
         }
 
         if (Time.time > startHoming)
         {
             findTarget();
-            homing();
+            homing(hit);
         }
     }
 
@@ -51,6 +53,11 @@ public class Rocket : MonoBehaviour
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         float minDist = Mathf.Infinity;
+
+        if(enemies.Length == 0)
+        {
+            Destroy(gameObject);
+        }
 
         foreach (GameObject enemy in enemies)
         {
@@ -64,7 +71,7 @@ public class Rocket : MonoBehaviour
         }
     }
 
-    private void homing()
+    private void homing(RaycastHit hit)
     {
         direction = target.transform.position - transform.position;
         direction = direction.normalized;
@@ -74,13 +81,20 @@ public class Rocket : MonoBehaviour
 
         if(dist < 6f)
         {
-            explode();
+            explode(hit);
         }
     }
 
-    private void explode()
+    private void explode(RaycastHit hit)
     {
-        GameObject particleEffet = (GameObject)Instantiate(bangParticleEffect, transform.position, transform.rotation);
+        GameObject particleEffet = (GameObject) Instantiate(bangParticleEffect, transform.position, transform.rotation);
+
+        if (hit.transform.gameObject.tag == "Enemy" && hit.transform.gameObject != null)
+        {
+            hit.transform.gameObject.GetComponent<Enemy>().takeDamage(damage);
+            Destroy(gameObject);
+        } 
+
         Destroy(gameObject);
     }
 }

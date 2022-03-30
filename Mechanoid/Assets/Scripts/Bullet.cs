@@ -8,10 +8,12 @@ public class Bullet : MonoBehaviour
 
     private Vector3 currentPos;
     private Vector3 prevPos;
+    private float damage;
 
     void Start()
     {
         currentPos = transform.position;
+        damage = 25f;
     }
 
     void Update()
@@ -23,19 +25,26 @@ public class Bullet : MonoBehaviour
 
         if (Physics.Linecast(prevPos, currentPos, out hit))
         {
-            if (hit.transform.gameObject.tag != "Projectile" && hit.transform.gameObject.tag != "Player" && hit.transform.gameObject.tag != "Invisible Wall")
-            {
-                GameObject particleEffet = (GameObject) Instantiate(bangParticleEffect, prevPos, transform.rotation);
-                Destroy(gameObject);
-            }
+            explode(hit.transform.gameObject);
         }
     }
 
     void OnCollisionEnter(Collision obj)
     {
-        if(obj.gameObject.tag != "Player")
+        explode(obj.gameObject);
+    }
+
+    void explode(GameObject target)
+    {
+        if (target.tag != "Projectile" && target.tag != "Player" && target.tag != "Invisible Wall")
         {
-            GameObject particleEffet = (GameObject)Instantiate(bangParticleEffect, transform.position, transform.rotation);
+            GameObject particleEffet = (GameObject) Instantiate(bangParticleEffect, prevPos, transform.rotation);
+
+            if (target.tag == "Enemy")
+            {
+                target.GetComponent<Enemy>().takeDamage(damage);
+            }
+
             Destroy(gameObject);
         }
     }
