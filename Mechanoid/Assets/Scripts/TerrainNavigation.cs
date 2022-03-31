@@ -15,15 +15,20 @@ public class TerrainNavigation : MonoBehaviour
     public Transform zoneF;
     public GameObject defaultZone;
     public GameObject mainMesh;
-    public AudioSource walkingSfx;
 
     private Transform target;
+    private GameObject soundManager;
     private NavMeshAgent navMeshAgent;
+    private AudioSource walkingSfx;
 
     void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         Cursor.lockState = CursorLockMode.Locked;
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager");
+
+        walkingSfx = soundManager.GetComponent<SoundManager>().getTrack("robotMovementSfx");
+
         initializeZones();
         setActiveZone(defaultZone);
     }

@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class HandleWeapons : MonoBehaviour
 {
-    public AudioSource gunSfx;
-    public AudioSource rocketLauncherSfx;
     public GameObject mainGuns;
     public GameObject rocketLauncher;
     public GameObject rocketPrefab;
@@ -20,7 +18,12 @@ public class HandleWeapons : MonoBehaviour
     public Transform shellSpawnPoint1;
     public Transform shellSpawnPoint2;
 
+    private AudioSource gunSfx;
+    private AudioSource rocketLauncherSfx;
+
+    private GameObject soundManager;
     private Animation animationController;
+
     private float timeToFire;
     private float fireRate;
     private float bulletSpeed;
@@ -28,9 +31,13 @@ public class HandleWeapons : MonoBehaviour
     void Start()
     {
         animationController = mainGuns.GetComponent<Animation>();
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager");
         timeToFire = Time.time;
         fireRate = 0.04f;
         bulletSpeed = 40f;
+
+        gunSfx = soundManager.GetComponent<SoundManager>().getTrack("minigunSfx");
+        rocketLauncherSfx = soundManager.GetComponent<SoundManager>().getTrack("rocketLauncherSfx");
     }
 
     void Update()

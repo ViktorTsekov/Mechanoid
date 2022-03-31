@@ -5,8 +5,6 @@ using UnityEngine;
 public class HandleMovement : MonoBehaviour
 {
     public Camera cam;
-    public AudioSource walkingSfx;
-    public AudioSource boosterSfx;
     public GameObject mainMesh;
     public GameObject battleStation;
     public Transform distanceCheck;
@@ -25,6 +23,10 @@ public class HandleMovement : MonoBehaviour
     private bool isGrounded;
     private bool playAnimation;
 
+    private AudioSource walkingSfx;
+    private AudioSource boosterSfx;
+
+    private GameObject soundManager;
     private Animation animationController;
     private CharacterController controller;
     private Vector3 velocity;
@@ -34,6 +36,10 @@ public class HandleMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         animationController = mainMesh.GetComponent<Animation>();
         controller = gameObject.GetComponent<CharacterController>();
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager");
+
+        walkingSfx = soundManager.GetComponent<SoundManager>().getTrack("robotMovementSfx");
+        boosterSfx = soundManager.GetComponent<SoundManager>().getTrack("rocketBoostSfx");
     }
 
     void Update()
