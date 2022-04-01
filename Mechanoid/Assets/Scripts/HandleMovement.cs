@@ -23,20 +23,38 @@ public class HandleMovement : MonoBehaviour
     private bool isGrounded;
     private bool playAnimation;
 
+    private KeyCode jump;
+    private KeyCode sprint;
+    private KeyCode unlockCursor;
+    private KeyCode tiltTowerUp;
+    private KeyCode tiltTowerDown;
+
     private AudioSource walkingSfx;
     private AudioSource boosterSfx;
 
+    private GameObject controlsManager;
     private GameObject soundManager;
     private Animation animationController;
     private CharacterController controller;
     private Vector3 velocity;
+
+    void Awake()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager");
+        controlsManager = GameObject.FindGameObjectWithTag("ControlsManager");
+
+        jump = controlsManager.GetComponent<ControlsManager>().getKey("jump");
+        sprint = controlsManager.GetComponent<ControlsManager>().getKey("sprint");
+        unlockCursor = controlsManager.GetComponent<ControlsManager>().getKey("unlockCursor");
+        tiltTowerUp = controlsManager.GetComponent<ControlsManager>().getKey("tiltTowerUp");
+        tiltTowerDown = controlsManager.GetComponent<ControlsManager>().getKey("tiltTowerDown");
+    }
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         animationController = mainMesh.GetComponent<Animation>();
         controller = gameObject.GetComponent<CharacterController>();
-        soundManager = GameObject.FindGameObjectWithTag("SoundManager");
 
         walkingSfx = soundManager.GetComponent<SoundManager>().getTrack("robotMovementSfx");
         boosterSfx = soundManager.GetComponent<SoundManager>().getTrack("rocketBoostSfx");
@@ -87,7 +105,7 @@ public class HandleMovement : MonoBehaviour
             velocity.y = -2f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(unlockCursor))
         {
             Cursor.lockState = CursorLockMode.None;
         }
@@ -97,24 +115,24 @@ public class HandleMovement : MonoBehaviour
             StartCoroutine(lockCursor(0.2f));
         }
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(sprint))
         {
             speed *= 2;
         }
 
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(tiltTowerUp))
         {
             battleStation.transform.localRotation = Quaternion.Euler(new Vector3(10f, 0f, 0f));
             playAnimation = false;
         }
 
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(tiltTowerDown))
         {
             battleStation.transform.localRotation = Quaternion.Euler(new Vector3(-10f, 0f, 0f));
             playAnimation = false;
         }
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetKeyDown(jump) && isGrounded)
         {
             StartCoroutine(DelayedAnimation("Jump"));
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);

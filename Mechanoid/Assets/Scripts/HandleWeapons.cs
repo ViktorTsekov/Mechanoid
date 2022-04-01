@@ -21,17 +21,29 @@ public class HandleWeapons : MonoBehaviour
     private AudioSource gunSfx;
     private AudioSource rocketLauncherSfx;
 
+    private KeyCode mainFire;
+    private KeyCode secondaryFire;
+
     private GameObject soundManager;
+    private GameObject controlsManager;
     private Animation animationController;
 
     private float timeToFire;
     private float fireRate;
     private float bulletSpeed;
 
+    void Awake()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager");
+        controlsManager = GameObject.FindGameObjectWithTag("ControlsManager");
+
+        mainFire = controlsManager.GetComponent<ControlsManager>().getKey("mainFire");
+        secondaryFire = controlsManager.GetComponent<ControlsManager>().getKey("secondaryFire");
+    }
+
     void Start()
     {
         animationController = mainGuns.GetComponent<Animation>();
-        soundManager = GameObject.FindGameObjectWithTag("SoundManager");
         timeToFire = Time.time;
         fireRate = 0.04f;
         bulletSpeed = 40f;
@@ -42,7 +54,7 @@ public class HandleWeapons : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetButton("Fire1") && Time.time > timeToFire)
+        if (Input.GetKey(mainFire) && Time.time > timeToFire)
         {
             timeToFire = Time.time + fireRate;
             mainGuns.GetComponent<Animation>().Play("Fire_Cycle");
@@ -59,12 +71,12 @@ public class HandleWeapons : MonoBehaviour
 
             fire();
         }
-        else if(!Input.GetButton("Fire1"))
+        else if (!Input.GetKey(mainFire))
         {
             gunSfx.Stop();
         }
 
-        if(Input.GetButtonDown("Fire2") && gameObject.GetComponent<RocketCooldownHandler>().getReadyToFire())
+        if (Input.GetKeyDown(secondaryFire) && gameObject.GetComponent<RocketCooldownHandler>().getReadyToFire())
         {
             fireRockets();
         }
@@ -72,7 +84,7 @@ public class HandleWeapons : MonoBehaviour
 
     private void fire()
     {
-        if(!gunSfx.isPlaying)
+        if (!gunSfx.isPlaying)
         {
             gunSfx.Play();
         }

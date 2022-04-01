@@ -18,16 +18,21 @@ public class TerrainNavigation : MonoBehaviour
 
     private Transform target;
     private GameObject soundManager;
+    private GameObject controlsManager;
     private NavMeshAgent navMeshAgent;
     private AudioSource walkingSfx;
+
+    private KeyCode unlockCursor;
 
     void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         Cursor.lockState = CursorLockMode.Locked;
         soundManager = GameObject.FindGameObjectWithTag("SoundManager");
+        controlsManager = GameObject.FindGameObjectWithTag("ControlsManager");
 
         walkingSfx = soundManager.GetComponent<SoundManager>().getTrack("robotMovementSfx");
+        unlockCursor = controlsManager.GetComponent<ControlsManager>().getKey("unlockCursor");
 
         initializeZones();
         setActiveZone(defaultZone);
@@ -37,7 +42,7 @@ public class TerrainNavigation : MonoBehaviour
     {
         navMeshAgent.destination = target.position;
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(unlockCursor))
         {
             Cursor.lockState = CursorLockMode.None;
         }
