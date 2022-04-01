@@ -9,6 +9,7 @@ TagManager:
   - Invisible Wall
   - FxTemporaire
   - SoundManager
+  - ControlsManager
   layers:
   - Default
   - TransparentFX
