@@ -28,6 +28,7 @@ public class UiManager : MonoBehaviour
 
     void Awake()
     {
+        Cursor.lockState = CursorLockMode.None;
         audioManager = GameObject.FindGameObjectWithTag("SoundManager");
         controlsManager = GameObject.FindGameObjectWithTag("ControlsManager");
 
