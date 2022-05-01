@@ -64,7 +64,7 @@ public class UiManager : MonoBehaviour
         switch (panelName)
         {
             case "gameMode": gameMode.SetActive(true); break;
-            case "settings": settings.SetActive(true); setValuesOfKeyButtons();  break;
+            case "settings": settings.SetActive(true); setValuesOfKeyButtons(); setValueOfSliders();  break;
             case "instructions": instructions.SetActive(true); break;
             case "credits": credits.SetActive(true); break;
         }
@@ -117,5 +117,11 @@ public class UiManager : MonoBehaviour
         {
             button.transform.GetChild(0).GetComponent<Text>().text = "" + controlsManager.GetComponent<ControlsManager>().getKey(button.name);
         }
+    }
+
+    private void setValueOfSliders()
+    {
+        sfxSlider.value = PlayerPrefs.GetFloat("sfxVolume", 1f);
+        soundtrackSlider.value = PlayerPrefs.GetFloat("soundtrackVolume", 1f);
     }
 }

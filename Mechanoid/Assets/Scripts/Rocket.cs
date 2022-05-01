@@ -78,11 +78,6 @@ public class Rocket : MonoBehaviour
         var rot = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, rot, rotationSpeed * Time.deltaTime);
         float dist = Vector3.Distance(target.transform.position, transform.position);
-
-        if(dist < 6f)
-        {
-            explode(hit);
-        }
     }
 
     private void explode(RaycastHit hit)
